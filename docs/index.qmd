@@ -1,6 +1,6 @@
 ---
 title: "Career QnA"
-subtitle: "Online"
+subtitle: "nipaluna, lutruwita"
 date: "2025-05-12"
 author: "Nicholas Tierney"
 institute: Freelance Statistician and Research Software Engineer
@@ -10,6 +10,7 @@ format:
     incremental: true
     slide-number: c
     show-slide-number: all
+    footer: "njtierney.github.io/ziggy-lab-talk/"
 editor: visual
 execute: 
   echo: true
@@ -261,55 +262,37 @@ include_graphics(here::here("docs/img/tf-examples.png"))
 
 <!-- What is something you love about the work you do currently? -->
 
+- Freedom (choice, flexibility, independence)
+- Meaning (impact, fast-pace)
+- I'm still working it all out!
+
 ## Tipping points of leaving PhD / Academia
 
-- How to navigate this
+<!-- - How to navigate this -->
+
+- I believe in academia. I felt like my role (RSE, stats) meant I could do other things. I've always had great people and support.
+- PhD was hard - I didn't feel like quitting but I was concerned I might "fail"
+- Assumed I'd be in industry, ended up in RSE-adjacent roles. I got lucky.
+- Often assumed I'd try out industry/other work eventually. I wanted "another data point".
 
   <!-- Was there a point where you were considering quitting your PhD/academia? If so, how did you navigate this?  -->
   
 ## Key skills gained during PhD
 
-- What is most helpful in my current job
+<!-- - What is most helpful in my current job -->
+
+- Programming [pi shaped researcher](https://link.springer.com/article/10.1007/s10816-015-9272-9).
+- Keeping a blog.
+- Exploratory Data Analysis.
+- Communication, presentation skills, writing.
+- Network, network, network.
+- Critical reasoning/research.
+  - What/how are you measuring.
+  - Model interpretation, practical significance.
+- How to ask questions, solve problems.
 
   <!-- What key skills you gained during your PhD journey do you think help you most in your current role? -->
 
-<!-- # Your Turn -->
+# Thank you!
 
-<!-- Introduce yourselves to TWO other people: -->
-
-<!-- - 1 work factoid  -->
-<!-- - 1 personal factoid  -->
-<!-- - Where are you calling from today? -->
-
-<!-- # The bad news -->
-
-<!-- There are times when learning this material might be frustrating, and that is a totally normal thing, and expected -->
-
-<!-- # The good news -->
-
-<!-- This is temporary and well worth the effort. -->
-
-<!-- # The plan -->
-
-<!-- -   Interactive Lesson - mixed teaching and practicals -->
-
-<!-- -   materials available at [qmd4sci.njtierney.com](https://qmd4sci.njtierney.com) -->
-
-<!-- # The plan: -->
-
-<!-- (Note that this is not catered) -->
-
-<!-- - 0900 - 1030: Teaching -->
-<!-- - 1030 - 1100: Morning Tea -->
-<!-- - 1100 - 1230: Teaching -->
-<!-- - 1230 - 1330: Lunch -->
-<!-- - 1330 - 1500: Teaching -->
-<!-- - 1500 - 1530: Afternoon Tea -->
-<!-- - 1530 - 1700: Teaching -->
-
-<!-- # Thank you! -->
-
-
-<!--  [bit.ly/qmd4sci-bne-25](https://bit.ly/qmd4sci-bne-25) -->
-
-<!--  [github.com/njtierney/rmd4sci](https://www.github.com/njtierney/rmd4sci) -->
+ [github.com/njtierney/ziggy-lab-talk](https://www.github.com/njtierney/ziggy-lab-talk)
