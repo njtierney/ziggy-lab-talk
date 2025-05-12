@@ -1,5 +1,5 @@
 
-# Ziggy lab PhD QnD
+# Ziggy lab PhD QnA
 
 <!-- badges: start -->
 <!-- badges: end -->
