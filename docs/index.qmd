@@ -1,0 +1,315 @@
+---
+title: "Career QnA"
+subtitle: "Online"
+date: "2025-05-12"
+author: "Nicholas Tierney"
+institute: Freelance Statistician and Research Software Engineer
+format: 
+  revealjs:
+    theme: [blood, extra.scss]
+    incremental: true
+    slide-number: c
+    show-slide-number: all
+editor: visual
+execute: 
+  echo: true
+  warning: false
+  cache: true
+  freeze: true
+---
+
+```{r}
+#| label: library
+#| include: false
+library(tidyverse)
+library(knitr)
+library(colorspace)
+library(naniar)
+library(visdat)
+library(brolgar)
+library(icons)
+```
+
+```{r}
+#| label: source-r-files
+#| echo: false
+#| message: false
+#| output: false
+lapply(list.files(here::here("R"), full.names = TRUE), source)
+```
+
+```{r}
+#| label: helpers
+#| include: false
+
+icons_fa <- icons::fontawesome
+icon_box <- icon_style(icons_fa$solid$`box-open`, fill = "#f0a800")
+icon_link <- icon_style(icons_fa$solid$link, fill = "#f0a800")
+icon_twitter <- icon_style(icons_fa$brands$twitter, fill = "#f0a800")
+icon_github <- icon_style(icons_fa$brands$github, fill = "#f0a800")
+icon_plane <- icon_style(icons_fa$solid$`paper-plane`, fill = "#f0a800")
+
+
+as_table <- function(...) knitr::kable(..., format='html', digits = 3)
+
+theme_set(
+  theme_grey(base_size = 16) +
+  theme(
+    legend.position = "bottom",
+    plot.background = element_rect(fill = "transparent"),
+    legend.background = element_rect(fill = "transparent")
+  )
+)
+
+# **ni**ck's **pa**lette
+nipa <- list(red = "#c03018",
+             orange = "#f0a800",
+             green = "#609048",
+             purple = "#484878",
+             light_purple = "#A3A3BB",
+             light_green = "#AFC7A3",
+             light_orange = "#F7D37F",
+             light_red = "#DF978B",
+             pale_purple = "#ECECF1",
+             pale_green = "#D7E3D1",
+             pale_orange = "#FBE9BF",
+             pale_red = "#EFCBC4")
+
+```
+
+## Who am I? The story so far
+
+-   **2008-2012**: Undergrad + honours in Psychology \@ UQ
+
+-   **2013-2017**: PhD Statistics \@ QUT
+    -   EDA / Bayesian / Geospatial / Optimal placement
+
+-   **2018 - 2020**: Research Fellow / Lecturer \@ Monash
+
+    -   Design EDA R packages: [`visdat`](https://github.com/ropensci/visdat), [`naniar`](https://naniar.njtierney.com/), [`brolgar`](https://brolgar.njtierney.com/)
+
+-   **2021 - 2025**: **Research Software Engineer** \@ The Kids
+
+    -   Maintain and design R packages: [`greta`](https://greta-stats.org/), [`conmat`](https://github.com/idem-lab/conmat)
+
+-   **2025 - **: Freelance Statistician & **RSE** 
+
+    -   Teaching, modelling, code review,
+    
+
+# ❤️ Hiking! `njt.micro.blog`
+
+![](img/pct-collage.jpg){background-size="75%"}
+
+<!-- ##  {background-image="img/pct-collage.jpg" background-size="75%"} -->
+
+
+## Define: Research Software Engineer
+
+> A Research Software Engineer (RSE) combines professional software engineering expertise with an intimate understanding of research.
+
+-- (from https://society-rse.org/about/)
+
+## What sorts of things does an RSE do?
+
+-   Create software to **solve research problems**
+
+-   Develop tools that **abstract the right components** to facilitate research
+
+-   Help researchers to **find and learn** good tools
+
+-   Support researchers with (computational) reproducibility
+
+::: aside
+(adapted from Heidi Seibold's [UseR2021 Keynote talk](https://docs.google.com/presentation/d/1XQc2U2X8hiK43UzUi9IwvsvULxhVy0WzWSa_Kt4ZJv4/view#slide=id.gdbfb32d486_0_448))
+:::
+
+::: notes
+I bring this up because I feel a bit of a need to explain my background to help explain the context of what I do
+:::
+
+##  {background-image="img/hex-visdat-and-naniar.png" background-size="75%"}
+
+
+## `visdat::vis_dat(airquality)`
+
+```{r}
+#| label: show-visdat
+#| fig-height: 3.5
+#| fig-width: 8
+vis_dat(airquality)
+```
+
+## `naniar::gg_miss_upset(airquality)`
+
+```{r}
+#| label: gg-miss-upset
+#| fig-height: 3.5
+#| fig-width: 8
+gg_miss_upset(airquality)
+```
+
+## `brolgar` - take spaghetti
+
+```{r}
+#| label: gg-brolgar
+ggplot(heights,
+       aes(x = year,
+           y = height_cm,
+           group = country)) + 
+  geom_line()
+```
+
+## `brolgar` - spread spaghetti
+
+```{r}
+#| label: gg-brolgar-spread
+ggplot(heights,
+       aes(x = year,
+           y = height_cm,
+           group = country)) + 
+  geom_line() + 
+  facet_strata(along = -year)
+```
+
+::: notes
+I'm a research software engineer, I help translate research methods into open source research software. One of my primary tasks is Extending/maintaining `greta` for statistical computing. I also work on creating and extending other software as needed for our team. Optional bits: PhD statistics - emphasis on frustration developing workflows R packages to facilitate exploratory data analysis Overviews, missing data, longitudinal data
+:::
+
+##  {background-image="img/greta-logo-background.png" background-size="contain"}
+
+## greta is R code
+
+::::: columns
+::: {.column width="45%"}
+**stan**
+
+```         
+data {
+  real alpha;
+  real beta;
+  real<lower=0> sigma2;
+  int<lower=0> J;
+  array[J] int y;
+  vector[J] Z;
+  array[J] int n;
+}
+transformed data {
+  real<lower=0> sigma;
+  sigma = sqrt(sigma2);
+}
+parameters {
+  real theta1;
+  real theta2;
+  vector[J] X;
+}
+model {
+  array[J] real p;
+  theta1 ~ normal(0, 32); // 32^2 = 1024 
+  theta2 ~ normal(0, 32);
+  X ~ normal(alpha + beta * Z, sigma);
+  y ~ binomial_logit(n, theta1 + theta2 * X);
+}
+```
+:::
+
+::: {.column width="55%"}
+**JAGS**
+
+```         
+for(j in 1 : J) {
+   y[j] ~ dbin(p[j], n[j])
+   logit(p[j]) <- theta[1] + theta[2] * X[j]
+   X[j] ~ dnorm(mu[j], tau)
+   mu[j] <- alpha + beta * Z[j]
+}
+theta[1] ~ dnorm(0.0, 0.001)
+theta[2] ~ dnorm(0.0, 0.001)
+```
+
+**greta**
+
+``` r
+theta <- normal(0, 32, dim = 2)
+mu <- alpha + beta * Z
+X <- normal(mu, sigma)
+p <- ilogit(theta[1] + theta[2] * X)
+distribution(y) <- binomial(n, p)
+```
+:::
+:::::
+
+# google tensorflow
+
+::::: columns
+::: {.column width="45%"}
+-   automatic differentiation
+-   efficient linear algebra
+-   highly parallel
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: tf-examples
+#| echo: false
+include_graphics(here::here("docs/img/tf-examples.png"))
+```
+:::
+:::::
+
+## Something I love about current work
+
+<!-- What is something you love about the work you do currently? -->
+
+## Tipping points of leaving PhD / Academia
+
+- How to navigate this
+
+  <!-- Was there a point where you were considering quitting your PhD/academia? If so, how did you navigate this?  -->
+  
+## Key skills gained during PhD
+
+- What is most helpful in my current job
+
+  <!-- What key skills you gained during your PhD journey do you think help you most in your current role? -->
+
+<!-- # Your Turn -->
+
+<!-- Introduce yourselves to TWO other people: -->
+
+<!-- - 1 work factoid  -->
+<!-- - 1 personal factoid  -->
+<!-- - Where are you calling from today? -->
+
+<!-- # The bad news -->
+
+<!-- There are times when learning this material might be frustrating, and that is a totally normal thing, and expected -->
+
+<!-- # The good news -->
+
+<!-- This is temporary and well worth the effort. -->
+
+<!-- # The plan -->
+
+<!-- -   Interactive Lesson - mixed teaching and practicals -->
+
+<!-- -   materials available at [qmd4sci.njtierney.com](https://qmd4sci.njtierney.com) -->
+
+<!-- # The plan: -->
+
+<!-- (Note that this is not catered) -->
+
+<!-- - 0900 - 1030: Teaching -->
+<!-- - 1030 - 1100: Morning Tea -->
+<!-- - 1100 - 1230: Teaching -->
+<!-- - 1230 - 1330: Lunch -->
+<!-- - 1330 - 1500: Teaching -->
+<!-- - 1500 - 1530: Afternoon Tea -->
+<!-- - 1530 - 1700: Teaching -->
+
+<!-- # Thank you! -->
+
+
+<!--  [bit.ly/qmd4sci-bne-25](https://bit.ly/qmd4sci-bne-25) -->
+
+<!--  [github.com/njtierney/rmd4sci](https://www.github.com/njtierney/rmd4sci) -->
